@@ -7,65 +7,70 @@
     <meta  name="viewport"content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>ระบบเรียกช่าง</title>
     
-    <style>
-      #button-container {
-        position: absolute;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      }
+  <style>
+  #button-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 
-      #large-button {
-        background-color: blue;
-        border: none;
-        color: white;
-        padding: 20px 40px;
-        text-align: center;
-        text-decoration: none;
-        display: inline-block;
-        font-size: 32px;
-        border-radius: 50%;
-        cursor: pointer;
-        box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-      }
-    </style>
-  </head>
-  
+  #large-button {
+    background-color: blue;
+    border: none;
+    color: white;
+    padding: 20px 40px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 32px;
+    border-radius: 50%;
+    cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+  }
+</style>
+
+    </head>
   <body>
     <nav class="navbar navbar-dark bg-primary">
       <span class="navbar-brand mb-0 h1">🙋‍♂️ระบบเรียกช่าง</span>
     </nav>
     
     <div id="button-container">
-      <button id="large-button">Click me</button>
-    </div>
-    
-    <div id="result"></div>
+  <button id="large-button">Click me</button>
+</div>
 
-    <script>
-      var button = document.getElementById("large-button");
-      var resultDiv = document.getElementById("result");
+<div id="result"></div>
 
-      button.addEventListener("click", function() {
-        resultDiv.innerHTML = "รอสักครู่ ช่างกำลังมา";
-        google.script.run.withSuccessHandler(function() {
-          resultDiv.innerHTML = "ช่างมาแล้ว!";
-        }).sendNotify();
-      });
-      function sendNotify() {
-      var token = 'umXrpPEd7lVMDozskIpZRljGAPwIdnE1Srql4pIikxu';
-      var msg = 'มีผู้ใช้รออยู่';
-      var options = {
-    "method": "post",
-    "payload": "message=" + msg,
-    "headers": {
-      "Authorization": "Bearer " + token
-    }
-  };
-  UrlFetchApp.fetch("https://notify-api.line.me/api/notify", options);
-}
+<script>
+  var button = document.getElementById("large-button");
+  var resultDiv = document.getElementById("result");
 
-    </script>
+  button.addEventListener("click", function() {
+    resultDiv.innerHTML = "รอสักครู่ ช่างกำลังมา";
+    google.script.run.withSuccessHandler(function() {
+      resultDiv.innerHTML = "ช่างมาแล้ว!";
+    }).sendNotify();
+  });
+  
+  function sendNotify() {
+    var token = 'umXrpPEd7lVMDozskIpZRljGAPwIdnE1Srql4pIikxu';
+    var msg = 'มีผู้ใช้รออยู่';
+    var options = {
+      "method": "post",
+      "payload": "message=" + msg,
+      "headers": {
+        "Authorization": "Bearer " + token
+      }
+    };
+    UrlFetchApp.fetch("https://notify-api.line.me/api/notify", options);
+  }
+  
+  function doGet() {
+    return HtmlService.createHtmlOutputFromFile('Page');
+  }
+</script>
+
     
   </body>
 </html>
